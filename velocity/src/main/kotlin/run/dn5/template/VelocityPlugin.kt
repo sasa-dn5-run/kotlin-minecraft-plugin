@@ -9,15 +9,19 @@ import com.velocitypowered.api.proxy.ProxyServer
 import org.slf4j.Logger
 import java.nio.file.Path
 
-@Plugin(id = BuildConstants.NAME, name = BuildConstants.NAME, version = BuildConstants.VERSION, authors = [BuildConstants.AUTHOR])
+@Plugin(id = "", name = "", version = "", authors = [""])
 class VelocityPlugin @Inject constructor(
-    private val server: ProxyServer,
-    private val logger: Logger,
+    val server: ProxyServer,
+    val logger: Logger,
     @DataDirectory
-    private val dataFolder: Path
-)  {
+    val dataFolder: Path
+) {
+    companion object {
+        lateinit var instance: VelocityPlugin
+    }
+
     @Subscribe
     fun onEnable(e: ProxyInitializeEvent) {
-        this.logger.info("Enabled")
+        instance = this
     }
 }

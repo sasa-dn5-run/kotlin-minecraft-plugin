@@ -1,10 +1,9 @@
 plugins {
-    kotlin("jvm") version("1.6.0")
-    id("com.github.johnrengelman.shadow") version "7.1.1"
-    id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.3"
+    kotlin("jvm") version("1.7.10")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-group = "run.dn5"
+group = "run.dn5.sasa"
 version = "1.0"
 description = "テンプレート"
 val artifactName =  "${rootProject.name}-${rootProject.version}.jar"
@@ -29,7 +28,7 @@ tasks {
         archiveFileName.set(artifactName)
     }
 
-    register("preDebug"){
+    register("predebug"){
         dependsOn("clean", "shadowJar")
         doLast {
             listOf("paper", "waterfall", "velocity").forEach {
@@ -51,7 +50,6 @@ subprojects {
         plugin("java")
         plugin("org.jetbrains.kotlin.jvm")
         plugin("com.github.johnrengelman.shadow")
-        plugin("org.jetbrains.gradle.plugin.idea-ext")
     }
 
     repositories {
@@ -60,7 +58,7 @@ subprojects {
     }
 
     dependencies {
-        compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
+        compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
     }
 
     java {
@@ -72,7 +70,7 @@ subprojects {
     tasks {
         processResources {
             filteringCharset = "UTF-8"
-            filesMatching(listOf("bungee.yml", "plugin.yml")) {
+            filesMatching(listOf("bungee.yml", "plugin.yml", "velocity-plugin.json")) {
                 expand(mapOf(
                     "name" to rootProject.name,
                     "id" to rootProject.name.toLowerCase(),
